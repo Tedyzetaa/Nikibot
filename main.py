@@ -34,7 +34,7 @@ class ChatApp(App):
         # Personaliza o botão de enviar
         send_button = Button(text="Enviar", size_hint_y=None, height=100,
                              background_color=(0.3, 0.5, 0.7, 1), color=(1, 1, 1, 1),
-                             font_size=20)
+                             font_size=24)
         send_button.bind(on_press=self.send_message)
         self.layout.add_widget(send_button)
 
@@ -86,7 +86,7 @@ class ChatApp(App):
         self.chat_container.add_widget(message_layout)
 
     def get_chatgpt_response(self, prompt):
-        api_key = 'API-KEY'  # Substitua pela sua chave de API real
+        api_key = 'CHAVE-API'  # Substitua pela sua chave de API real
         url = 'https://api.openai.com/v1/chat/completions'
         headers = {
             'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ class ChatApp(App):
         data = {
             'model': 'gpt-3.5-turbo',
             'messages': [{'role': 'user', 'content': prompt}],
-            'max_tokens': 150
+            'max_tokens': 4096
         }
 
         max_retries = 5
@@ -116,7 +116,7 @@ class ChatApp(App):
             except requests.RequestException as e:
                 print(f"Exceção durante a requisição: {e}")
                 return {'error': 'Erro ao tentar se comunicar com a API.'}
-        
+
         return {'error': 'Número máximo de tentativas excedido. Tente novamente mais tarde.'}
 
 if __name__ == "__main__":
